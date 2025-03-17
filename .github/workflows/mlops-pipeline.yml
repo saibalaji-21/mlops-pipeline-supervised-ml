@@ -1,0 +1,29 @@
+name: MLOps Pipeline Automation
+
+on:
+  push:
+    branches:
+      - main  # Runs on every push to main branch
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+
+      - name: Install Dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run Data Preprocessing
+        run: python scripts/preprocess.py
+      
+      - name: Train Model
+        run: python scripts/train_model.py
+      
